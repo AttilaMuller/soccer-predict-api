@@ -1,0 +1,26 @@
+{
+  "name": "express-daniel-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js",
+    "postinstall": "tsc"
+  },
+  "author": "ME",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "inversify": "^4.13.0",
+    "inversify-express-utils": "^6.1.0",
+    "reflect-metadata": "^0.1.12",
+    "typescript": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "moment": "^2.22.2"
+  }
+}
