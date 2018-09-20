@@ -1,6 +1,6 @@
 import {Response } from 'express';
 import {
-    controller, httpGet,
+    controller,
     httpPost,
     interfaces,
     requestBody,
@@ -24,11 +24,4 @@ export class MatchesController implements interfaces.Controller {
             resp.status(400).send(error.message);
         }
     }
-
-    // get information of one particular match
-    @httpGet('/:id')
-    private async getOne(@requestParam('id') id: number, @response() res: Response) {
-        return this.matchService.getMatch(id);
-    }
-
 }

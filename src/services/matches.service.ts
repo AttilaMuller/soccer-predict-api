@@ -12,7 +12,6 @@ export class MatchesService {
     tenDaysEarlier = moment().add(-10, 'days').format('YYYY-MM-DD');
     tenDaysLater = moment().add(+10, 'days').format('YYYY-MM-DD');
     header = {headers: {'X-Auth-Token':  process.env.AUTH_TOKEN}};
-    matches = [];
 
     public getMatches = async (competitionArray: number[], period: string): Promise<MatchModel[]> => {
         let join = competitionArray.join(',');
@@ -22,7 +21,7 @@ export class MatchesService {
             return matches.map((match: any) => ({
                 id: match.id,
                 competition: match.competition.name,
-                date: match.utcDate,
+                date: moment.utc(match.utcDate).add(2, 'hours').format(),
                 status: match.status,
                 homeTeam: match.homeTeam.name,
                 awayTeam: match.awayTeam.name,
@@ -41,7 +40,7 @@ export class MatchesService {
             return matches.map((match: any) => ({
                 id: match.id,
                 competition: match.competition.name,
-                date: match.utcDate,
+                date: moment.utc(match.utcDate).add(2, 'hours').format(),
                 status: match.status,
                 homeTeam: match.homeTeam.name,
                 awayTeam: match.awayTeam.name,
@@ -58,21 +57,4 @@ export class MatchesService {
         }
 
     };
-
-    public getMatch = async (id: number) => {
-        const { data: { match } }  = await axios.get(`${this.API_MATCHES_URL}/${id}`, this.header);
-        return {
-            id: match.id,
-            competition: match.competition.name,
-            date: match.utcDate,
-            status: match.status,
-            homeTeam: match.homeTeam.name,
-            awayTeam: match.awayTeam.name,
-            score: { winner: match.score.winner,
-                result: {
-                    homeTeam: match.score.fullTime.homeTeam,
-                    awayTeam: match.score.fullTime.awayTeam
-                },},
-        };
-    }
 }
