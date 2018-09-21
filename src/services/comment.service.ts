@@ -17,5 +17,14 @@ export class CommentService {
             matchCommentObj[0].comments.push(comment);
             await matchCommentObj[0].save();
         }
+    };
+
+    public getMatchComments = async (matchId: number) => {
+        let matchCommentObj = await MatchComment.find({ matchId: matchId });
+        if (matchCommentObj.length == 0) {
+            throw new Error('There are no comments for this match')
+        } else {
+            return matchCommentObj[0].comments;
+        }
     }
 }
