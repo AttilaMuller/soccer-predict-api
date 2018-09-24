@@ -11,7 +11,7 @@ export class UserService {
     public authenticateUser = async (gid: string) => {
         let user = await User.find( { gid: gid });
         if (user.length > 0) {
-            return user;
+            return user[0];
         } else {
             const { data } = await axios.get(`${this.MGMT_ENDPOINT}${gid}`, this.header);
             let newUser = new User ({

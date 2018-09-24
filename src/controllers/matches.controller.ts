@@ -19,7 +19,7 @@ export class MatchesController implements interfaces.Controller {
     private async post(@requestBody() competitions: number[], @requestParam('period') period: string, @response() resp: Response): Promise<any> {
         try {
             resp.status(200);
-            return this.matchService.getMatches(competitions, period);
+            return await this.matchService.getMatches(competitions, period);
         } catch(error) {
             resp.status(400).send(error.message);
         }
