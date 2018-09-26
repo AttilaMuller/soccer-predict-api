@@ -11,6 +11,7 @@ import {StandingsService} from "./services/standings.service";
 import * as Mongoose from 'mongoose';
 import {UserService} from "./services/user.service";
 import {CommentService} from "./services/comment.service";
+import {cors} from "./middleware/cors";
 
 const port = process.env.PORT || 8080;
 
@@ -26,6 +27,7 @@ container.bind<CommentService>('CommentService').to(CommentService).inSingletonS
 const server = new InversifyExpressServer(container);
 server.setConfig((app) => {
     app.use(json());
+    app.use(cors);
 });
 
 const app = server.build();
