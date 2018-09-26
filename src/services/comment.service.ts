@@ -34,5 +34,13 @@ export class CommentService {
         } else {
             throw new Error("Unauthorized")
         }
+    };
+
+    public getMatchCommentsSize = async () => {
+        let matchCommentObj = await MatchComment.find();
+        return matchCommentObj.map((commentObj: any) => ({
+            matchId: commentObj.matchId,
+            size: commentObj.comments.length
+        }));
     }
 }
