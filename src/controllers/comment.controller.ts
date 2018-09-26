@@ -23,20 +23,32 @@ export class CommentController implements interfaces.Controller {
     private async postCommentToMatch(@requestBody() comment: CommentModel, @requestParam('matchId') matchId: number, @request() req: Request, @response() resp: Response) {
         const { user: { sub } } = req;
         try {
-            this.commentService.saveMatchComment(matchId, sub, comment);
-            resp.sendStatus(200);
+            await this.commentService.saveMatchComment(matchId, sub, comment);
+            return "";
         } catch (error) {
-            resp.status(400).send(error.message);
+            resp.status(400);
+            return error.message;
+        }
+    }
+
+    @httpPost('/del/:matchId')
+    private async updateComment(@requestBody() comment: CommentModel, @requestParam('matchId') matchId: number, @request() req: Request, @response() resp: Response) {
+        const { user: { sub } } = req;
+        try {
+            await this.commentService.deleteComment(matchId, sub, comment);
+            return "";
+        } catch (error) {
+            resp.status(400);
+            return error.message;
         }
     }
 
     @httpGet('/:matchId')
     private async getCommentsFromMatch(@requestParam('matchId') matchId: number, @response() resp: Response): Promise<any> {
         try {
-            resp.status(200);
-            return this.commentService.getMatchComments(matchId);
+            return await this.commentService.getMatchComments(matchId);
         } catch(error) {
-            resp.status(400).send(error.message);
+            resp.status(400);
         }
     }
 

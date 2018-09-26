@@ -7,7 +7,6 @@ export class CommentService {
 
     public saveMatchComment = async (matchId: number, gid: string, comment: CommentModel) => {
         let matchCommentObj = await MatchComment.find( { matchId: matchId });
-        console.log(matchCommentObj);
         if (matchCommentObj.length == 0) {
             let newMatchComment = new MatchComment({
                 matchId: matchId,
