@@ -48,7 +48,6 @@ export class CommentController implements interfaces.Controller {
         try {
             return await this.commentService.getMatchComments(matchId);
         } catch(error) {
-            resp.status(400);
             return "";
         }
     }
