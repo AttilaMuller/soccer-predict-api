@@ -7,6 +7,7 @@ export class CommentService {
 
     public saveMatchComment = async (matchId: number, gid: string, comment: CommentModel) => {
         let matchCommentObj = await MatchComment.find( { matchId: matchId });
+        console.log(matchCommentObj);
         if (matchCommentObj.length == 0) {
             let newMatchComment = new MatchComment({
                 matchId: matchId,
@@ -21,10 +22,18 @@ export class CommentService {
 
     public getMatchComments = async (matchId: number) => {
         let matchCommentObj = await MatchComment.find({ matchId: matchId });
-        if (matchCommentObj.length == 0) {
-            throw new Error('There are no comments for this match')
+        return matchCommentObj[0].comments;
+    };
+
+    public deleteComment = async (matchId: number, gid: string, comm: CommentModel) => {
+        if (gid == comm.userId) {
+            let matchCommentObj = await MatchComment.find( { matchId: matchId });
+            matchCommentObj[0].comments = matchCommentObj[0].comments.filter((comment: CommentModel) => {
+                return comment.date != comm.date;
+            });
+            await matchCommentObj[0].save();
         } else {
-            return matchCommentObj[0].comments;
+            throw new Error("Unauthorized")
         }
     }
 }
