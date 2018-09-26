@@ -14,11 +14,11 @@ Users are be able to login and chat about particular matches.
 
 ## Frontend
 
-The frontend is made with Angular 6, state management is done via services using RxJs.
+The frontend is made with Angular 6, state management is done via services using RxJs. https://github.com/AttilaMuller/soccer-predict-frontend
 
 ## Backend
 
-The backend API is made with NodeJs Express, particularly InversifyJs.
+The backend API is made with NodeJs Express, particularly InversifyJs. https://github.com/AttilaMuller/soccer-predict-api
 
 ## Database
 
